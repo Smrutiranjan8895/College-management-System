@@ -1,0 +1,36 @@
+{
+  "name": "gcek-central-backend",
+  "version": "1.0.0",
+  "description": "GCEK Central serverless backend - Lambda handlers for college management",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.1025.0",
+    "@aws-sdk/client-dynamodb": "^3.540.0",
+    "@aws-sdk/lib-dynamodb": "^3.540.0"
+  },
+  "devDependencies": {
+    "serverless": "^3.38.0",
+    "serverless-offline": "^13.3.0"
+  },
+  "scripts": {
+    "start": "serverless offline",
+    "deploy": "serverless deploy",
+    "deploy:prod": "serverless deploy --stage prod",
+    "seed:dummy": "node scripts/seedDummyData.js",
+    "remove": "serverless remove",
+    "logs": "serverless logs -f",
+    "info": "serverless info",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "serverless",
+    "dynamodb"
+  ],
+  "author": "",
+  "license": "ISC"
+}

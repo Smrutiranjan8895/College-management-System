@@ -1,0 +1,367 @@
+service: gcek-central
+
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 10
+  
+  environment:
+    DYNAMODB_REGION: ${self:provider.region}
+    USERS_TABLE: ${self:custom.usersTable}
+    STUDENTS_TABLE: ${self:custom.studentsTable}
+    ATTENDANCE_TABLE: ${self:custom.attendanceTable}
+    RESULTS_TABLE: ${self:custom.resultsTable}
+    NOTICES_TABLE: ${self:custom.noticesTable}
+    COGNITO_USER_POOL_ID: ${self:custom.cognitoUserPoolId}
+    AUTO_SEED_DUMMY: ${env:AUTO_SEED_DUMMY, 'true'}
+  
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Query
+            - dynamodb:Scan
+          Resource:
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.studentsTable}
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.studentsTable}/index/*
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.attendanceTable}
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.attendanceTable}/index/*
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.resultsTable}
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.resultsTable}/index/*
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.noticesTable}
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.noticesTable}/index/*
+        - Effect: Allow
+          Action:
+            - cognito-idp:AdminGetUser
+            - cognito-idp:ListUsers
+            - cognito-idp:AdminCreateUser
+            - cognito-idp:AdminUpdateUserAttributes
+            - cognito-idp:AdminSetUserPassword
+            - cognito-idp:AdminAddUserToGroup
+            - cognito-idp:AdminRemoveUserFromGroup
+            - cognito-idp:AdminListGroupsForUser
+            - cognito-idp:ListUsersInGroup
+            - cognito-idp:GetGroup
+            - cognito-idp:CreateGroup
+          Resource:
+            - arn:aws:cognito-idp:${self:provider.region}:${aws:accountId}:userpool/${self:custom.cognitoUserPoolId}
+
+custom:
+  usersTable: Users
+  studentsTable: ${env:STUDENTS_TABLE, 'Student'}
+  attendanceTable: Attendance
+  resultsTable: Results
+  noticesTable: Notices
+  cognitoUserPoolId: ap-south-1_zndNmRJGt
+  
+  serverless-offline:
+    httpPort: 3000
+    lambdaPort: 3002
+    noPrependStageInUrl: true
+
+plugins:
+  - serverless-offline
+
+functions:
+  # Custom Message Handler - Cognito trigger for styled emails
+  customMessageHandler:
+    handler: handlers/customMessageHandler.handler
+    description: Custom email templates for Cognito verification
+    
+  studentHandler:
+    handler: handlers/studentHandler.handler
+    description: Manages student records (CRUD)
+    events:
+      - http:
+          path: students
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: students
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: students/{studentId}
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: students/{studentId}
+          method: put
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: students/{studentId}
+          method: delete
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+
+  userHandler:
+    handler: handlers/userHandler.handler
+    description: Manages application users and role assignments
+    events:
+      - http:
+          path: users/me
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: users/check-email
+          method: get
+          cors: true
+      - http:
+          path: users
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: users
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: users/self-role
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: users/{username}
+          method: put
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+
+  attendanceHandler:
+    handler: handlers/attendanceHandler.handler
+    description: Manages attendance records
+    events:
+      - http:
+          path: attendance/me
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: attendance
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: attendance
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: attendance/{studentId}
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: attendance/bulk
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+
+  resultsHandler:
+    handler: handlers/resultsHandler.handler
+    description: Manages student results and grades
+    events:
+      - http:
+          path: results/me
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: results
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: results
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: results/{studentId}
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: results/{studentId}
+          method: put
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+
+  noticeHandler:
+    handler: handlers/noticeHandler.handler
+    description: Manages notices and announcements
+    events:
+      - http:
+          path: notices
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: notices
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: notices/{noticeId}
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: notices/{noticeId}
+          method: put
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: notices/{noticeId}
+          method: delete
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+
+  seedDataHandler:
+    handler: handlers/seedDataHandler.handler
+    description: Seeds realistic dummy academic data
+    events:
+      - http:
+          path: seed/dummy-data
+          method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: seed/dummy-data
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+
+resources:
+  Resources:
+    CustomMessageInvokePermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        FunctionName:
+          Fn::GetAtt:
+            - CustomMessageHandlerLambdaFunction
+            - Arn
+        Action: lambda:InvokeFunction
+        Principal: cognito-idp.amazonaws.com
+        SourceArn: arn:aws:cognito-idp:${self:provider.region}:${aws:accountId}:userpool/${self:custom.cognitoUserPoolId}
+
+    ApiGatewayAuthorizer:
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: CognitoAuthorizer
+        Type: COGNITO_USER_POOLS
+        IdentitySource: method.request.header.Authorization
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ProviderARNs:
+          - arn:aws:cognito-idp:${self:provider.region}:${aws:accountId}:userpool/${self:custom.cognitoUserPoolId}
+
+  Outputs:
+    ApiUrl:
+      Description: API Gateway endpoint URL
+      Value:
+        Fn::Sub: https://${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com/${self:provider.stage}
+
+    CustomMessageLambdaArn:
+      Description: Custom message Lambda ARN for Cognito trigger setup
+      Value:
+        Fn::GetAtt:
+          - CustomMessageHandlerLambdaFunction
+          - Arn
