@@ -12,8 +12,10 @@ import {
   ListUsersCommand,
   ListUsersInGroupCommand,
 } from '@aws-sdk/client-cognito-identity-provider';
+import { GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 
 import { err, ok } from '../utils/response.js';
+import { docClient, TABLES } from '../utils/dynamo.js';
 import { getClaims, hasRole } from '../utils/verifyToken.js';
 
 const cognitoClient = new CognitoIdentityProviderClient({
@@ -23,6 +25,8 @@ const cognitoClient = new CognitoIdentityProviderClient({
 const USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
 const ROLE_VALUES = ['admin', 'branch_admin', 'teacher', 'student'];
 const BRANCH_VALUES = ['ALL', 'CS', 'EC', 'ME', 'CE', 'EE'];
+const PROFILE_ROLE_VALUES = ['student', 'teacher', 'admin'];
+const MALFORMED_USER_ID_GUARDS = new Set(['email', 'role', 'name']);
 const ROLE_ALIAS_MAP = {
   admin: 'admin',
   admins: 'admin',
@@ -68,6 +72,35 @@ function normalizeBranch(value, fallback = 'CS') {
 
 function normalizeEmail(value) {
   return (value || '').toString().trim().toLowerCase();
+}
+
+function resolveProfileRoleFromClaims(claims) {
+  const groupRole = (Array.isArray(claims?.groups) ? claims.groups : [])
+    .map((group) => normalizeRole(group, ''))
+    .find((role) => ROLE_VALUES.includes(role));
+
+  const normalizedRole = normalizeRole(groupRole || claims?.role || claims?.['custom:role'] || 'student');
+  if (normalizedRole === 'admin' || normalizedRole === 'branch_admin') {
+    return 'admin';
+  }
+  if (normalizedRole === 'teacher') {
+    return 'teacher';
+  }
+  return 'student';
+}
+
+function buildUserProfileFromClaims(claims) {
+  return {
+    userId: String(claims?.userId || claims?.sub || '').trim(),
+    email: normalizeEmail(claims?.email),
+    role: resolveProfileRoleFromClaims(claims),
+    createdAt: new Date().toISOString(),
+  };
+}
+
+function isMalformedUserProfile(profile) {
+  const userId = String(profile?.userId || '').trim().toLowerCase();
+  return MALFORMED_USER_ID_GUARDS.has(userId);
 }
 
 function normalizePhone(value) {
@@ -171,6 +204,105 @@ function generateStrongPassword() {
   const randomPart = Math.random().toString(36).slice(-6);
   const numericPart = String(Date.now()).slice(-4);
   return `Gcek@${randomPart}${numericPart}!`;
+}
+
+async function getUserProfileById(userId) {
+  if (!userId) {
+    return null;
+  }
+
+  const result = await docClient.send(
+    new GetCommand({
+      TableName: TABLES.USERS,
+      Key: { userId },
+    })
+  );
+
+  return result.Item || null;
+}
+
+async function initUserProfile(claims) {
+  const profile = buildUserProfileFromClaims(claims);
+
+  if (!profile.userId || !profile.email) {
+    console.warn('users/init: rejected due to missing JWT claims', {
+      hasUserId: Boolean(profile.userId),
+      hasEmail: Boolean(profile.email),
+      source: 'jwt',
+    });
+    return err(400, 'Missing required JWT claims: sub and email');
+  }
+
+  if (!PROFILE_ROLE_VALUES.includes(profile.role)) {
+    profile.role = 'student';
+  }
+
+  if (isMalformedUserProfile(profile)) {
+    console.warn('users/init: prevented malformed profile write', {
+      userId: profile.userId,
+      email: profile.email,
+      role: profile.role,
+      tableName: TABLES.USERS,
+    });
+    return err(400, 'Malformed profile payload was blocked');
+  }
+
+  const existing = await getUserProfileById(profile.userId);
+  if (existing) {
+    console.log('users/init: user profile already exists', {
+      userId: profile.userId,
+      tableName: TABLES.USERS,
+    });
+    return ok(200, {
+      data: existing,
+      created: false,
+    });
+  }
+
+  try {
+    await docClient.send(
+      new PutCommand({
+        TableName: TABLES.USERS,
+        Item: profile,
+        ConditionExpression: 'attribute_not_exists(userId)',
+      })
+    );
+
+    console.log('users/init: created user profile', {
+      userId: profile.userId,
+      role: profile.role,
+      tableName: TABLES.USERS,
+    });
+
+    return ok(201, {
+      data: profile,
+      created: true,
+    });
+  } catch (error) {
+    if (error?.name === 'ConditionalCheckFailedException') {
+      const latest = await getUserProfileById(profile.userId);
+      console.log('users/init: duplicate create avoided', {
+        userId: profile.userId,
+        tableName: TABLES.USERS,
+      });
+
+      return ok(200, {
+        data: latest || profile,
+        created: false,
+      });
+    }
+
+    console.error('users/init: failed to create user profile', {
+      userId: profile.userId,
+      email: profile.email,
+      role: profile.role,
+      tableName: TABLES.USERS,
+      errorName: error?.name || 'UnknownError',
+      errorMessage: error?.message || 'No error message provided',
+    });
+
+    throw error;
+  }
 }
 
 async function listGroupsForUser(username) {
@@ -369,7 +501,8 @@ async function setSelfRole(claims, body) {
     return err(409, `Role is already assigned as ${current.explicitRole}`);
   }
 
-  if (requestedRole === 'admin' && current.explicitRole !== 'admin') {
+  const adminSelfAssignEnabled = String(process.env.ALLOW_ADMIN_SELF_ASSIGN || 'true').toLowerCase() !== 'false';
+  if (!adminSelfAssignEnabled && requestedRole === 'admin' && current.explicitRole !== 'admin') {
     const allowBootstrapAdmin = await isAdminBootstrapAllowed();
     if (!allowBootstrapAdmin) {
       return err(403, 'Admin self-assignment is disabled. Contact an existing admin.');
@@ -621,6 +754,10 @@ export const handler = async (event) => {
 
     if (method === 'GET' && isPath(event, '/users/check-email')) {
       return await checkEmailAvailability(queryParams);
+    }
+
+    if (method === 'POST' && isPath(event, '/users/init')) {
+      return await initUserProfile(claims);
     }
 
     if (method === 'POST' && isPath(event, '/users/self-role')) {

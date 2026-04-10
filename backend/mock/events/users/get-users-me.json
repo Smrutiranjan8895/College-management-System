@@ -1,0 +1,25 @@
+{
+  "resource": "/users/me",
+  "path": "/users/me",
+  "httpMethod": "GET",
+  "headers": {
+    "Authorization": "Bearer mock-student-token"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "sub": "mock-student-sub",
+        "email": "student@gcek.edu.in",
+        "name": "Mock Student",
+        "cognito:username": "student.mock",
+        "cognito:groups": "student",
+        "custom:role": "student",
+        "custom:branch": "CS"
+      }
+    }
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

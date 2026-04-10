@@ -35,6 +35,8 @@
                 "dynamodb:Scan"
               ],
               "Resource": [
+                "arn:aws:dynamodb:ap-south-1:*:table/Users",
+                "arn:aws:dynamodb:ap-south-1:*:table/Users/index/*",
                 "arn:aws:dynamodb:ap-south-1:*:table/Student",
                 "arn:aws:dynamodb:ap-south-1:*:table/Student/index/*",
                 "arn:aws:dynamodb:ap-south-1:*:table/Attendance",
@@ -272,7 +274,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/gcek-central/dev/1775594551186-2026-04-07T20:42:31.186Z/gcek-central.zip"
+                "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
               },
               "Handler": "handlers/customMessageHandler.handler",
               "Runtime": "nodejs20.x",
@@ -310,7 +312,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/gcek-central/dev/1775594551186-2026-04-07T20:42:31.186Z/gcek-central.zip"
+                "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
               },
               "Handler": "handlers/studentHandler.handler",
               "Runtime": "nodejs20.x",
@@ -348,7 +350,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/gcek-central/dev/1775594551186-2026-04-07T20:42:31.186Z/gcek-central.zip"
+                "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
               },
               "Handler": "handlers/userHandler.handler",
               "Runtime": "nodejs20.x",
@@ -386,7 +388,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/gcek-central/dev/1775594551186-2026-04-07T20:42:31.186Z/gcek-central.zip"
+                "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
               },
               "Handler": "handlers/attendanceHandler.handler",
               "Runtime": "nodejs20.x",
@@ -424,7 +426,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/gcek-central/dev/1775594551186-2026-04-07T20:42:31.186Z/gcek-central.zip"
+                "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
               },
               "Handler": "handlers/resultsHandler.handler",
               "Runtime": "nodejs20.x",
@@ -462,7 +464,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/gcek-central/dev/1775594551186-2026-04-07T20:42:31.186Z/gcek-central.zip"
+                "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
               },
               "Handler": "handlers/noticeHandler.handler",
               "Runtime": "nodejs20.x",
@@ -500,7 +502,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/gcek-central/dev/1775594551186-2026-04-07T20:42:31.186Z/gcek-central.zip"
+                "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
               },
               "Handler": "handlers/seedDataHandler.handler",
               "Runtime": "nodejs20.x",
@@ -531,80 +533,80 @@
               "SeedDataHandlerLogGroup"
             ]
           },
-          "CustomMessageHandlerLambdaVersionQqT1IeqKPcVR9gdzTOBte9aVLHqLtJOFIRK9n6tk4": {
+          "CustomMessageHandlerLambdaVersionYGveq9T7CYYoljbhWR08vVwhgijsj2s9xqIRwAsWw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CustomMessageHandlerLambdaFunction"
               },
-              "CodeSha256": "Z9BQJaFaRMe1MdV2MucrHJ6IcG2Wi0k7PBvx7Sx8aRQ=",
+              "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
               "Description": "Custom email templates for Cognito verification"
             }
           },
-          "StudentHandlerLambdaVersionPkCYRKHumz5tWZaR4eIwUtf3S1uJ37MypzoH01ElE8": {
+          "StudentHandlerLambdaVersiondPS5Xew1WRVxYIWuXreDAucG14yHkbVFBsSAIn2AU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "StudentHandlerLambdaFunction"
               },
-              "CodeSha256": "Z9BQJaFaRMe1MdV2MucrHJ6IcG2Wi0k7PBvx7Sx8aRQ=",
+              "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
               "Description": "Manages student records (CRUD)"
             }
           },
-          "UserHandlerLambdaVersiondF7Vh3ABwtYOUhwSFCGknHTPgXP5p9AFvMVBym0qOc": {
+          "UserHandlerLambdaVersionXkCvEju8FuXPInObTEKejwCKKyTfLORdreP9xQpdc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UserHandlerLambdaFunction"
               },
-              "CodeSha256": "Z9BQJaFaRMe1MdV2MucrHJ6IcG2Wi0k7PBvx7Sx8aRQ=",
+              "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
               "Description": "Manages application users and role assignments"
             }
           },
-          "AttendanceHandlerLambdaVersionqU5tcZ0WKHQ63uCizosXjs0yvUI0Zlc0yT1AaCnGogo": {
+          "AttendanceHandlerLambdaVersionM2Y5RsxhytzpPcE7poxUDlJTtkYMs82o8TJ9DlpGz8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AttendanceHandlerLambdaFunction"
               },
-              "CodeSha256": "Z9BQJaFaRMe1MdV2MucrHJ6IcG2Wi0k7PBvx7Sx8aRQ=",
+              "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
               "Description": "Manages attendance records"
             }
           },
-          "ResultsHandlerLambdaVersionqrzZJS1SPwwQvXkzQBoO0Gxzz8Unj7SQAsY6R9lF4": {
+          "ResultsHandlerLambdaVersionHpreKJKO3Q0iQIaCA6jmRjVMUqo81nx76oVKmWrSQB0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ResultsHandlerLambdaFunction"
               },
-              "CodeSha256": "Z9BQJaFaRMe1MdV2MucrHJ6IcG2Wi0k7PBvx7Sx8aRQ=",
+              "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
               "Description": "Manages student results and grades"
             }
           },
-          "NoticeHandlerLambdaVersionlKLlB5xW4G5jpPB9xQvvbOejmQ8JJrsiJLwYWULMw": {
+          "NoticeHandlerLambdaVersion95CfozokuyTJO3Z1vYvhaxGRC8jFdmX0vamalWfQZP8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "NoticeHandlerLambdaFunction"
               },
-              "CodeSha256": "Z9BQJaFaRMe1MdV2MucrHJ6IcG2Wi0k7PBvx7Sx8aRQ=",
+              "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
               "Description": "Manages notices and announcements"
             }
           },
-          "SeedDataHandlerLambdaVersionRDMuDT9mbMYpAQ8Cx1j2O8QZ2YVLfkSnabG0uzh4gnc": {
+          "SeedDataHandlerLambdaVersiondYUdID4rBM7hGauxQPbcgk656S3qBvGyXQ44eyHc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "SeedDataHandlerLambdaFunction"
               },
-              "CodeSha256": "Z9BQJaFaRMe1MdV2MucrHJ6IcG2Wi0k7PBvx7Sx8aRQ=",
+              "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
               "Description": "Seeds realistic dummy academic data"
             }
           },
@@ -2988,7 +2990,7 @@
               "SeedDataHandlerLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1775594503850": {
+          "ApiGatewayDeployment1775733199024": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -3307,7 +3309,7 @@
           "CustomMessageHandlerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CustomMessageHandlerLambdaVersionQqT1IeqKPcVR9gdzTOBte9aVLHqLtJOFIRK9n6tk4"
+              "Ref": "CustomMessageHandlerLambdaVersionYGveq9T7CYYoljbhWR08vVwhgijsj2s9xqIRwAsWw"
             },
             "Export": {
               "Name": "sls-gcek-central-dev-CustomMessageHandlerLambdaFunctionQualifiedArn"
@@ -3316,7 +3318,7 @@
           "StudentHandlerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "StudentHandlerLambdaVersionPkCYRKHumz5tWZaR4eIwUtf3S1uJ37MypzoH01ElE8"
+              "Ref": "StudentHandlerLambdaVersiondPS5Xew1WRVxYIWuXreDAucG14yHkbVFBsSAIn2AU"
             },
             "Export": {
               "Name": "sls-gcek-central-dev-StudentHandlerLambdaFunctionQualifiedArn"
@@ -3325,7 +3327,7 @@
           "UserHandlerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UserHandlerLambdaVersiondF7Vh3ABwtYOUhwSFCGknHTPgXP5p9AFvMVBym0qOc"
+              "Ref": "UserHandlerLambdaVersionXkCvEju8FuXPInObTEKejwCKKyTfLORdreP9xQpdc"
             },
             "Export": {
               "Name": "sls-gcek-central-dev-UserHandlerLambdaFunctionQualifiedArn"
@@ -3334,7 +3336,7 @@
           "AttendanceHandlerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AttendanceHandlerLambdaVersionqU5tcZ0WKHQ63uCizosXjs0yvUI0Zlc0yT1AaCnGogo"
+              "Ref": "AttendanceHandlerLambdaVersionM2Y5RsxhytzpPcE7poxUDlJTtkYMs82o8TJ9DlpGz8"
             },
             "Export": {
               "Name": "sls-gcek-central-dev-AttendanceHandlerLambdaFunctionQualifiedArn"
@@ -3343,7 +3345,7 @@
           "ResultsHandlerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ResultsHandlerLambdaVersionqrzZJS1SPwwQvXkzQBoO0Gxzz8Unj7SQAsY6R9lF4"
+              "Ref": "ResultsHandlerLambdaVersionHpreKJKO3Q0iQIaCA6jmRjVMUqo81nx76oVKmWrSQB0"
             },
             "Export": {
               "Name": "sls-gcek-central-dev-ResultsHandlerLambdaFunctionQualifiedArn"
@@ -3352,7 +3354,7 @@
           "NoticeHandlerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "NoticeHandlerLambdaVersionlKLlB5xW4G5jpPB9xQvvbOejmQ8JJrsiJLwYWULMw"
+              "Ref": "NoticeHandlerLambdaVersion95CfozokuyTJO3Z1vYvhaxGRC8jFdmX0vamalWfQZP8"
             },
             "Export": {
               "Name": "sls-gcek-central-dev-NoticeHandlerLambdaFunctionQualifiedArn"
@@ -3361,7 +3363,7 @@
           "SeedDataHandlerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SeedDataHandlerLambdaVersionRDMuDT9mbMYpAQ8Cx1j2O8QZ2YVLfkSnabG0uzh4gnc"
+              "Ref": "SeedDataHandlerLambdaVersiondYUdID4rBM7hGauxQPbcgk656S3qBvGyXQ44eyHc"
             },
             "Export": {
               "Name": "sls-gcek-central-dev-SeedDataHandlerLambdaFunctionQualifiedArn"
@@ -3522,7 +3524,7 @@
         "timeout": 10,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "CustomMessageHandlerLambdaVersionQqT1IeqKPcVR9gdzTOBte9aVLHqLtJOFIRK9n6tk4"
+        "versionLogicalId": "CustomMessageHandlerLambdaVersionYGveq9T7CYYoljbhWR08vVwhgijsj2s9xqIRwAsWw"
       },
       "studentHandler": {
         "handler": "handlers/studentHandler.handler",
@@ -3705,7 +3707,7 @@
         "timeout": 10,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "StudentHandlerLambdaVersionPkCYRKHumz5tWZaR4eIwUtf3S1uJ37MypzoH01ElE8"
+        "versionLogicalId": "StudentHandlerLambdaVersiondPS5Xew1WRVxYIWuXreDAucG14yHkbVFBsSAIn2AU"
       },
       "userHandler": {
         "handler": "handlers/userHandler.handler",
@@ -3912,7 +3914,7 @@
         "timeout": 10,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "UserHandlerLambdaVersiondF7Vh3ABwtYOUhwSFCGknHTPgXP5p9AFvMVBym0qOc"
+        "versionLogicalId": "UserHandlerLambdaVersionXkCvEju8FuXPInObTEKejwCKKyTfLORdreP9xQpdc"
       },
       "attendanceHandler": {
         "handler": "handlers/attendanceHandler.handler",
@@ -4095,7 +4097,7 @@
         "timeout": 10,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "AttendanceHandlerLambdaVersionqU5tcZ0WKHQ63uCizosXjs0yvUI0Zlc0yT1AaCnGogo"
+        "versionLogicalId": "AttendanceHandlerLambdaVersionM2Y5RsxhytzpPcE7poxUDlJTtkYMs82o8TJ9DlpGz8"
       },
       "resultsHandler": {
         "handler": "handlers/resultsHandler.handler",
@@ -4278,7 +4280,7 @@
         "timeout": 10,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "ResultsHandlerLambdaVersionqrzZJS1SPwwQvXkzQBoO0Gxzz8Unj7SQAsY6R9lF4"
+        "versionLogicalId": "ResultsHandlerLambdaVersionHpreKJKO3Q0iQIaCA6jmRjVMUqo81nx76oVKmWrSQB0"
       },
       "noticeHandler": {
         "handler": "handlers/noticeHandler.handler",
@@ -4461,7 +4463,7 @@
         "timeout": 10,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "NoticeHandlerLambdaVersionlKLlB5xW4G5jpPB9xQvvbOejmQ8JJrsiJLwYWULMw"
+        "versionLogicalId": "NoticeHandlerLambdaVersion95CfozokuyTJO3Z1vYvhaxGRC8jFdmX0vamalWfQZP8"
       },
       "seedDataHandler": {
         "handler": "handlers/seedDataHandler.handler",
@@ -4542,7 +4544,7 @@
         "timeout": 10,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "SeedDataHandlerLambdaVersionRDMuDT9mbMYpAQ8Cx1j2O8QZ2YVLfkSnabG0uzh4gnc"
+        "versionLogicalId": "SeedDataHandlerLambdaVersiondYUdID4rBM7hGauxQPbcgk656S3qBvGyXQ44eyHc"
       }
     },
     "resources": {
@@ -4620,7 +4622,7 @@
     "artifact": "F:\\MY CODES 2.0\\tekkzy\\gcek-central\\backend\\.serverless\\gcek-central.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/gcek-central/dev/1775594551186-2026-04-07T20:42:31.186Z",
+    "artifactDirectoryName": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z",
     "artifact": "gcek-central.zip"
   }
 }

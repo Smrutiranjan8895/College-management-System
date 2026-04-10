@@ -1,0 +1,56 @@
+﻿noticeHandler invoked: {"httpMethod":"DELETE","path":"/notices/CS#2026-04-08T00:00:00.000Z","pathParameters":{"noticeId":"CS#2026-04-08T00:00:00.000Z"}}
+deleteNotice: CS 2026-04-08T00:00:00.000Z
+npx.cmd : Error in noticeHandler: ConditionalCheckFailedException: The 
+conditional request failed
+At F:\MY CODES 2.0\tekkzy\gcek-central\backend\mock\invoke-all.ps1:55 char:19
++   $invokeOutput = & npx.cmd $invokeArgs 2>&1
++                   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error in notice... request faile 
+   d:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    at AwsJson1_0Protocol.handleError (F:\MY CODES 2.0\tekkzy\gcek-central\bac
+kend\node_modules\@aws-sdk\core\dist-cjs\submodules\protocols\index.js:788:27)
+    at process.processTicksAndRejections 
+(node:internal/process/task_queues:105:5)
+    at async AwsJson1_0Protocol.deserializeResponse (F:\MY CODES 2.0\tekkzy\gc
+ek-central\backend\node_modules\@smithy\core\dist-cjs\submodules\protocols\ind
+ex.js:509:13)
+    at async F:\MY CODES 2.0\tekkzy\gcek-central\backend\node_modules\@smithy\
+core\dist-cjs\submodules\schema\index.js:27:24
+    at async F:\MY CODES 2.0\tekkzy\gcek-central\backend\node_modules\@aws-sdk
+\lib-dynamodb\dist-cjs\index.js:107:34
+    at async F:\MY CODES 2.0\tekkzy\gcek-central\backend\node_modules\@smithy\
+core\dist-cjs\index.js:120:20
+    at async F:\MY CODES 2.0\tekkzy\gcek-central\backend\node_modules\@smithy\
+middleware-retry\dist-cjs\index.js:251:46
+    at async F:\MY CODES 2.0\tekkzy\gcek-central\backend\node_modules\@aws-sdk
+\middleware-logger\dist-cjs\index.js:5:26
+    at async deleteNotice (file:///F:/MY%20CODES%202.0/tekkzy/gcek-central/bac
+kend/handlers/noticeHandler.js:195:3)
+    at async handler (file:///F:/MY%20CODES%202.0/tekkzy/gcek-central/backend/
+handlers/noticeHandler.js:42:16) {
+  '$fault': 'client',
+  '$retryable': undefined,
+  '$metadata': {
+    httpStatusCode: 400,
+    requestId: 'S3DR1TJ038B8QRDPFNV3DI1LLJVV4KQNSO5AEMVJF66Q9ASUAAJG',
+    extendedRequestId: undefined,
+    cfId: undefined,
+    attempts: 1,
+    totalRetryDelay: 0
+  },
+  Item: undefined,
+  __type: 'com.amazonaws.dynamodb.v20120810#ConditionalCheckFailedException'
+}
+{
+    "statusCode": 500,
+    "headers": {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type,Authorization"
+    },
+    "body": {
+        "error": "Internal server error"
+    }
+}

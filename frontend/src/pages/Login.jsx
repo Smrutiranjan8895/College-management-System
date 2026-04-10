@@ -15,6 +15,20 @@ const ROLES = [
 const BRANCHES = ['CS', 'EC', 'ME', 'CE', 'EE', 'ALL'];
 const API_BASE_URL = (import.meta.env.VITE_API_URL || '').trim();
 
+function normalizeRoleSelection(value) {
+  const candidate = (value || '').toString().trim().toLowerCase();
+  return ROLES.some((role) => role.value === candidate) ? candidate : 'student';
+}
+
+function normalizeBranchSelection(value, role) {
+  if (role === 'admin') {
+    return 'ALL';
+  }
+
+  const candidate = (value || '').toString().trim().toUpperCase();
+  return BRANCHES.includes(candidate) && candidate !== 'ALL' ? candidate : 'CS';
+}
+
 async function checkEmailStatus(email) {
   if (!API_BASE_URL || !email) {
     return null;
@@ -39,13 +53,26 @@ async function checkEmailStatus(email) {
 
 function Login() {
   const navigate = useNavigate();
+  const pendingRoleFromStorage = normalizeRoleSelection(localStorage.getItem('pendingUserRole'));
+  const pendingBranchFromStorage = normalizeBranchSelection(
+    localStorage.getItem('pendingUserBranch'),
+    pendingRoleFromStorage
+  );
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('student');
-  const [selectedBranch, setSelectedBranch] = useState('CS');
+  const [selectedRole, setSelectedRole] = useState(pendingRoleFromStorage);
+  const [selectedBranch, setSelectedBranch] = useState(pendingBranchFromStorage);
+
+  useEffect(() => {
+    const pendingEmail = (localStorage.getItem('pendingVerifyEmail') || '').trim();
+    if (pendingEmail && !email) {
+      setEmail(pendingEmail);
+    }
+  }, [email]);
 
   useEffect(() => {
     if (selectedRole === 'admin' && selectedBranch !== 'ALL') {
@@ -90,8 +117,11 @@ function Login() {
 
     setLoading(true);
     try {
-      localStorage.setItem('pendingUserRole', selectedRole);
-      localStorage.setItem('pendingUserBranch', selectedBranch);
+      const normalizedRole = normalizeRoleSelection(selectedRole);
+      const normalizedBranch = normalizeBranchSelection(selectedBranch, normalizedRole);
+
+      localStorage.setItem('pendingUserRole', normalizedRole);
+      localStorage.setItem('pendingUserBranch', normalizedBranch);
 
       const { isSignedIn, nextStep } = await signInWithRecovery(email, password);
       

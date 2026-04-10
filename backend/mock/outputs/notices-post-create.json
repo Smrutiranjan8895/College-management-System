@@ -1,0 +1,39 @@
+﻿noticeHandler invoked: {"httpMethod":"POST","path":"/notices","pathParameters":null}
+createNotice: Mock Midterm Schedule CS
+{
+    "statusCode": 201,
+    "headers": {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type,Authorization"
+    },
+    "body": {
+        "data": {
+            "branch": "CS",
+            "createdAt": "2026-04-08T14:28:24.029Z",
+            "noticeId": "CS#2026-04-08T14:28:24.029Z",
+            "title": "Mock Midterm Schedule",
+            "content": "Midterm exams begin from 20 April.",
+            "description": "Midterm exams begin from 20 April.",
+            "priority": "HIGH",
+            "postedBy": "Mock Teacher",
+            "postedByRole": "teacher",
+            "postedByUserId": "mock-teacher-sub",
+            "updatedAt": "2026-04-08T14:28:24.029Z"
+        },
+        "notice": {
+            "branch": "CS",
+            "createdAt": "2026-04-08T14:28:24.029Z",
+            "noticeId": "CS#2026-04-08T14:28:24.029Z",
+            "title": "Mock Midterm Schedule",
+            "content": "Midterm exams begin from 20 April.",
+            "description": "Midterm exams begin from 20 April.",
+            "priority": "HIGH",
+            "postedBy": "Mock Teacher",
+            "postedByRole": "teacher",
+            "postedByUserId": "mock-teacher-sub",
+            "updatedAt": "2026-04-08T14:28:24.029Z"
+        },
+        "message": "Notice posted successfully"
+    }
+}

@@ -1,0 +1,46 @@
+﻿CustomMessage trigger: {
+  "version": "1",
+  "region": "ap-south-1",
+  "userPoolId": "ap-south-1_zndNmRJGt",
+  "userName": "student.mock",
+  "callerContext": {
+    "awsSdkVersion": "aws-sdk-unknown",
+    "clientId": "mock-client-id"
+  },
+  "triggerSource": "CustomMessage_SignUp",
+  "request": {
+    "userAttributes": {
+      "email": "deepankarsahoo68@gmail.com",
+      "name": "Mock Student"
+    },
+    "codeParameter": "123456",
+    "usernameParameter": "student.mock",
+    "clientMetadata": {}
+  },
+  "response": {}
+}
+{
+    "version": "1",
+    "region": "ap-south-1",
+    "userPoolId": "ap-south-1_zndNmRJGt",
+    "userName": "student.mock",
+    "callerContext": {
+        "awsSdkVersion": "aws-sdk-unknown",
+        "clientId": "mock-client-id"
+    },
+    "triggerSource": "CustomMessage_SignUp",
+    "request": {
+        "userAttributes": {
+            "email": "deepankarsahoo68@gmail.com",
+            "name": "Mock Student"
+        },
+        "codeParameter": "123456",
+        "usernameParameter": "student.mock",
+        "clientMetadata": {}
+    },
+    "response": {
+        "smsMessage": "GCEK Central verification code: 123456. This code is valid for 24 hours.",
+        "emailSubject": "Welcome to GCEK Central - Verify Your Email Address",
+        "emailMessage": "\n    <!doctype html>\n    <html>\n      <head>\n        <meta charset=\"utf-8\" />\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n        <title>Verify your email address</title>\n      </head>\n      <body style=\"margin:0;padding:0;background:#eef2ff;font-family:Segoe UI,Arial,sans-serif;color:#1e293b;\">\n        <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding:24px 12px;\">\n          <tr>\n            <td align=\"center\">\n              <table role=\"presentation\" width=\"560\" cellspacing=\"0\" cellpadding=\"0\" style=\"max-width:560px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e2e8f0;\">\n                <tr>\n                  <td style=\"background:#1d4ed8;padding:24px 28px;color:#ffffff;\">\n                    <div style=\"font-size:12px;letter-spacing:1.2px;text-transform:uppercase;opacity:0.9;\">GCEK Central</div>\n                    <div style=\"font-size:24px;font-weight:700;line-height:1.35;margin-top:6px;\">Verify your email address</div>\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:28px;\">\n                    <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.65;\">Thank you for creating your GCEK Central account. Enter the verification code below to activate your account.</p>\n\n                    <div style=\"margin:18px 0;padding:16px;border:1px dashed #1d4ed8;border-radius:12px;background:#f8fafc;text-align:center;\">\n                      <div style=\"font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-bottom:8px;\">Verification code</div>\n                      <div style=\"font-size:34px;font-weight:800;letter-spacing:6px;color:#0f172a;line-height:1;\">123456</div>\n                    </div>\n\n                    <p style=\"margin:0 0 10px 0;font-size:14px;line-height:1.65;\">This verification code expires in 24 hours.</p>\n                    <p style=\"margin:0;font-size:13px;line-height:1.65;color:#64748b;\">If you did not create this account, you can safely ignore this email.</p>\n                  </td>\n                </tr>\n                <tr>\n                  <td style=\"padding:16px 28px;background:#f8fafc;border-top:1px solid #e2e8f0;font-size:12px;color:#64748b;line-height:1.6;\">\n                    <div>GCEK Central | Government College of Engineering Kalahandi</div>\n                    <div style=\"margin-top:4px;\">This is an automated security message. Do not share this code with anyone.</div>\n                    <div style=\"margin-top:6px;\">2026</div>\n                  </td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n        </table>\n      </body>\n    </html>\n  "
+    }
+}

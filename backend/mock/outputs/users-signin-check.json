@@ -1,0 +1,34 @@
+﻿{
+    "statusCode": 200,
+    "headers": {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type,Authorization"
+    },
+    "body": {
+        "data": {
+            "userId": "mock-student-sub",
+            "username": "student.mock",
+            "email": "student@gcek.edu.in",
+            "name": "Mock Student",
+            "role": "student",
+            "roleAssigned": true,
+            "branch": "CS",
+            "groups": [
+                "student"
+            ]
+        },
+        "user": {
+            "userId": "mock-student-sub",
+            "username": "student.mock",
+            "email": "student@gcek.edu.in",
+            "name": "Mock Student",
+            "role": "student",
+            "roleAssigned": true,
+            "branch": "CS",
+            "groups": [
+                "student"
+            ]
+        }
+    }
+}

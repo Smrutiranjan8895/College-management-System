@@ -46,6 +46,49 @@ function normalizeBranch(value) {
   return String(value).trim().toUpperCase();
 }
 
+function getAuthorizationHeader(event) {
+  const headers = event?.headers || {};
+  const multiValueHeaders = event?.multiValueHeaders || {};
+
+  return (
+    headers.Authorization ||
+    headers.authorization ||
+    multiValueHeaders.Authorization?.[0] ||
+    multiValueHeaders.authorization?.[0] ||
+    null
+  );
+}
+
+function getBearerToken(authorizationHeader) {
+  if (!authorizationHeader || typeof authorizationHeader !== 'string') {
+    return null;
+  }
+
+  const match = authorizationHeader.trim().match(/^Bearer\s+(.+)$/i);
+  return match?.[1] || null;
+}
+
+function decodeJwtPayload(token) {
+  if (!token) {
+    return null;
+  }
+
+  const tokenParts = token.split('.');
+  if (tokenParts.length < 2) {
+    return null;
+  }
+
+  try {
+    const payloadJson = Buffer.from(tokenParts[1], 'base64url').toString('utf8');
+    return JSON.parse(payloadJson);
+  } catch (error) {
+    console.warn('verifyToken: failed to decode JWT payload from Authorization header', {
+      error: error?.name || error?.message,
+    });
+    return null;
+  }
+}
+
 function readAttributeMap(attributes = []) {
   const map = {};
   for (const attr of attributes) {
@@ -136,7 +179,31 @@ async function fetchCognitoFallbackClaims(username) {
  * @returns {object} User claims object
  */
 export const getClaims = async (event) => {
-  const claims = event.requestContext?.authorizer?.claims || {};
+  const authorizerClaims =
+    event.requestContext?.authorizer?.claims ||
+    event.requestContext?.authorizer?.jwt?.claims ||
+    {};
+  const authorizationHeader = getAuthorizationHeader(event);
+  const bearerToken = getBearerToken(authorizationHeader);
+  const tokenPayload = decodeJwtPayload(bearerToken) || {};
+
+  const claims = Object.keys(authorizerClaims).length > 0 ? authorizerClaims : tokenPayload;
+
+  console.log('verifyToken: getClaims invoked', {
+    method: event?.httpMethod || null,
+    path: event?.path || null,
+    hasAuthorizerClaims: Object.keys(authorizerClaims).length > 0,
+    hasAuthorizationHeader: Boolean(authorizationHeader),
+    hasBearerToken: Boolean(bearerToken),
+    usingTokenPayloadFallback: Object.keys(authorizerClaims).length === 0 && Object.keys(tokenPayload).length > 0,
+  });
+
+  console.log('verifyToken: JWT payload snapshot', {
+    sub: claims?.sub || null,
+    email: claims?.email || null,
+    username: claims?.['cognito:username'] || claims?.username || null,
+  });
+
   const rawGroups = claims['cognito:groups'];
 
   const groups = Array.isArray(rawGroups)
@@ -167,8 +234,8 @@ export const getClaims = async (event) => {
   const role = normalizeRole(roleFromClaims || roleFromGroups || fallbackClaims.role || 'student');
   const roleAssigned = Boolean(roleFromClaims || roleFromGroups || fallbackClaims.role);
   const branch = normalizeBranch(branchFromClaims || fallbackClaims.branch || null);
-  
-  return {
+
+  const resolvedClaims = {
     userId: claims.sub || null,
     username,
     email: claims.email || fallbackClaims.email || null,
@@ -178,6 +245,8 @@ export const getClaims = async (event) => {
     branch,
     groups: mergedGroups,
   };
+
+  return resolvedClaims;
 };
 
 /**

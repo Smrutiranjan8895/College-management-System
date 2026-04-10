@@ -33,6 +33,8 @@ provider:
             - dynamodb:Query
             - dynamodb:Scan
           Resource:
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.usersTable}
+            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.usersTable}/index/*
             - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.studentsTable}
             - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.studentsTable}/index/*
             - arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.attendanceTable}
@@ -131,6 +133,14 @@ functions:
       - http:
           path: users/me
           method: get
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+      - http:
+          path: users/init
+          method: post
           cors: true
           authorizer:
             type: COGNITO_USER_POOLS

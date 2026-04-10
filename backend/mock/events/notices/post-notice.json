@@ -1,0 +1,25 @@
+{
+  "resource": "/notices",
+  "path": "/notices",
+  "httpMethod": "POST",
+  "headers": {
+    "Authorization": "Bearer mock-teacher-token"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "sub": "mock-teacher-sub",
+        "email": "teacher@gcek.edu.in",
+        "name": "Mock Teacher",
+        "cognito:username": "teacher.mock",
+        "cognito:groups": "teacher",
+        "custom:role": "teacher",
+        "custom:branch": "CS"
+      }
+    }
+  },
+  "body": "{\"title\":\"sibanada\",\"content\":\"good evening\",\"priority\":\"HIGH\",\"branch\":\"CS\"}",
+  "isBase64Encoded": false
+}

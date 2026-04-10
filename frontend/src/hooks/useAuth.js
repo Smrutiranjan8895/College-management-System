@@ -57,6 +57,32 @@ async function fetchServerUserProfile(authToken) {
   }
 }
 
+async function initUserProfile(authToken) {
+  if (!API_BASE_URL || !authToken) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/init`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const payload = await response.json();
+    return payload?.data || null;
+  } catch (error) {
+    console.warn('Could not initialize user profile:', error);
+    return null;
+  }
+}
+
 async function syncPendingRole(authToken, pendingRole, pendingBranch) {
   if (!API_BASE_URL || !authToken || !pendingRole) {
     return null;
@@ -129,7 +155,11 @@ export function useAuth() {
         console.warn('Could not fetch user attributes, continuing with basic session data:', attributeError);
       }
 
+      const initializedProfile = await initUserProfile(authToken);
       let serverProfile = await fetchServerUserProfile(authToken);
+      if (!serverProfile && initializedProfile) {
+        serverProfile = initializedProfile;
+      }
 
       const pendingRole = localStorage.getItem('pendingUserRole');
       const pendingBranch = localStorage.getItem('pendingUserBranch');

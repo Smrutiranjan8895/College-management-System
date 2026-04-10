@@ -20,10 +20,13 @@
     "deploy": "serverless deploy",
     "deploy:prod": "serverless deploy --stage prod",
     "seed:dummy": "node scripts/seedDummyData.js",
+    "cleanup:users": "node scripts/cleanupMalformedUsers.js",
     "remove": "serverless remove",
     "logs": "serverless logs -f",
     "info": "serverless info",
-    "test": "echo \"No tests configured\" && exit 0"
+    "test": "echo \"No tests configured\" && exit 0",
+    "mock:invoke": "powershell -NoProfile -ExecutionPolicy Bypass -File ./mock/invoke-all.ps1",
+    "mock:invoke:clean": "powershell -NoProfile -ExecutionPolicy Bypass -File ./mock/invoke-all.ps1 -CleanOutput"
   },
   "keywords": [
     "aws",

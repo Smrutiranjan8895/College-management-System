@@ -1,0 +1,21 @@
+{
+  "version": "1",
+  "region": "ap-south-1",
+  "userPoolId": "ap-south-1_zndNmRJGt",
+  "userName": "student.mock",
+  "callerContext": {
+    "awsSdkVersion": "aws-sdk-unknown",
+    "clientId": "mock-client-id"
+  },
+  "triggerSource": "CustomMessage_SignUp",
+  "request": {
+    "userAttributes": {
+      "email": "deepankarsahoo68@gmail.com",
+      "name": "Mock Student"
+    },
+    "codeParameter": "123456",
+    "usernameParameter": "student.mock",
+    "clientMetadata": {}
+  },
+  "response": {}
+}

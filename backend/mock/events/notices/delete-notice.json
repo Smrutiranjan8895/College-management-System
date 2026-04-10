@@ -1,0 +1,30 @@
+{
+  "resource": "/notices/{noticeId}",
+  "path": "/notices/CS#2026-04-08T00:00:00.000Z",
+  "httpMethod": "DELETE",
+  "headers": {
+    "Authorization": "Bearer mock-admin-token"
+  },
+  "queryStringParameters": {
+    "branch": "CS",
+    "createdAt": "2026-04-08T00:00:00.000Z"
+  },
+  "pathParameters": {
+    "noticeId": "CS#2026-04-08T00:00:00.000Z"
+  },
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "sub": "mock-admin-sub",
+        "email": "admin@gcek.edu.in",
+        "name": "Mock Admin",
+        "cognito:username": "admin.mock",
+        "cognito:groups": "admin",
+        "custom:role": "admin",
+        "custom:branch": "ALL"
+      }
+    }
+  },
+  "body": null,
+  "isBase64Encoded": false
+}
