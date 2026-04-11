@@ -8,6 +8,8 @@ const STALE_SESSION_ERROR_NAMES = new Set([
 ]);
 
 const API_BASE_URL = (import.meta.env.VITE_API_URL || '').trim();
+const USER_INIT_STORAGE_KEY_PREFIX = 'userInitialized:';
+const userInitInFlight = new Map();
 
 const ROLE_ALIAS_MAP = {
   admin: 'admin',
@@ -30,6 +32,36 @@ function normalizeRole(value, fallback = 'student') {
 
   const underscored = raw.replace(/[\s-]+/g, '_');
   return ROLE_ALIAS_MAP[underscored] || ROLE_ALIAS_MAP[raw] || fallback;
+}
+
+function getUserInitStorageKey(userId) {
+  return `${USER_INIT_STORAGE_KEY_PREFIX}${String(userId || '').trim()}`;
+}
+
+function hasUserInitGuard(userId) {
+  if (!userId) {
+    return false;
+  }
+
+  try {
+    const key = getUserInitStorageKey(userId);
+    return localStorage.getItem(key) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function markUserInitialized(userId) {
+  if (!userId) {
+    return;
+  }
+
+  try {
+    const key = getUserInitStorageKey(userId);
+    localStorage.setItem(key, 'true');
+  } catch {
+    // Ignore localStorage errors in restricted environments.
+  }
 }
 
 async function fetchServerUserProfile(authToken) {
@@ -72,14 +104,49 @@ async function initUserProfile(authToken) {
     });
 
     if (!response.ok) {
-      return null;
+      return {
+        ok: false,
+        data: null,
+      };
     }
 
     const payload = await response.json();
-    return payload?.data || null;
+    return {
+      ok: true,
+      data: payload?.data || null,
+      created: Boolean(payload?.created),
+      skipped: Boolean(payload?.skipped),
+    };
   } catch (error) {
     console.warn('Could not initialize user profile:', error);
     return null;
+  }
+}
+
+async function initUserProfileOnce(authToken, userId) {
+  if (!authToken || !userId || hasUserInitGuard(userId)) {
+    return null;
+  }
+
+  const storageKey = getUserInitStorageKey(userId);
+  if (userInitInFlight.has(storageKey)) {
+    return userInitInFlight.get(storageKey);
+  }
+
+  const initPromise = (async () => {
+    const result = await initUserProfile(authToken);
+    if (result?.ok) {
+      markUserInitialized(userId);
+    }
+    return result;
+  })();
+
+  userInitInFlight.set(storageKey, initPromise);
+
+  try {
+    return await initPromise;
+  } finally {
+    userInitInFlight.delete(storageKey);
   }
 }
 
@@ -155,7 +222,8 @@ export function useAuth() {
         console.warn('Could not fetch user attributes, continuing with basic session data:', attributeError);
       }
 
-      const initializedProfile = await initUserProfile(authToken);
+      const initializedResult = await initUserProfileOnce(authToken, currentUser.userId);
+      const initializedProfile = initializedResult?.data || null;
       let serverProfile = await fetchServerUserProfile(authToken);
       if (!serverProfile && initializedProfile) {
         serverProfile = initializedProfile;

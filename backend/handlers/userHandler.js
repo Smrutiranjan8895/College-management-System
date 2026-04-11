@@ -27,6 +27,7 @@ const ROLE_VALUES = ['admin', 'branch_admin', 'teacher', 'student'];
 const BRANCH_VALUES = ['ALL', 'CS', 'EC', 'ME', 'CE', 'EE'];
 const PROFILE_ROLE_VALUES = ['student', 'teacher', 'admin'];
 const MALFORMED_USER_ID_GUARDS = new Set(['email', 'role', 'name']);
+const COGNITO_SUB_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const ROLE_ALIAS_MAP = {
   admin: 'admin',
   admins: 'admin',
@@ -74,18 +75,32 @@ function normalizeEmail(value) {
   return (value || '').toString().trim().toLowerCase();
 }
 
-function resolveProfileRoleFromClaims(claims) {
-  const groupRole = (Array.isArray(claims?.groups) ? claims.groups : [])
-    .map((group) => normalizeRole(group, ''))
-    .find((role) => ROLE_VALUES.includes(role));
+function normalizeGroupsClaim(value) {
+  if (Array.isArray(value)) {
+    return value.map((group) => String(group).trim().toLowerCase()).filter(Boolean);
+  }
 
-  const normalizedRole = normalizeRole(groupRole || claims?.role || claims?.['custom:role'] || 'student');
-  if (normalizedRole === 'admin' || normalizedRole === 'branch_admin') {
+  if (typeof value === 'string') {
+    return value
+      .split(',')
+      .map((group) => group.trim().toLowerCase())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+function resolveProfileRoleFromClaims(claims) {
+  const groups = normalizeGroupsClaim(claims?.['cognito:groups'] || claims?.groups);
+  const normalizedRoles = groups.map((group) => normalizeRole(group, ''));
+
+  if (normalizedRoles.includes('admin') || normalizedRoles.includes('branch_admin')) {
     return 'admin';
   }
-  if (normalizedRole === 'teacher') {
+  if (normalizedRoles.includes('teacher')) {
     return 'teacher';
   }
+
   return 'student';
 }
 
@@ -101,6 +116,19 @@ function buildUserProfileFromClaims(claims) {
 function isMalformedUserProfile(profile) {
   const userId = String(profile?.userId || '').trim().toLowerCase();
   return MALFORMED_USER_ID_GUARDS.has(userId);
+}
+
+function isValidCognitoSubUserId(userId) {
+  const normalizedUserId = String(userId || '').trim();
+  if (!normalizedUserId) {
+    return false;
+  }
+
+  if (MALFORMED_USER_ID_GUARDS.has(normalizedUserId.toLowerCase())) {
+    return false;
+  }
+
+  return COGNITO_SUB_REGEX.test(normalizedUserId);
 }
 
 function normalizePhone(value) {
@@ -244,18 +272,27 @@ async function initUserProfile(claims) {
       role: profile.role,
       tableName: TABLES.USERS,
     });
-    return err(400, 'Malformed profile payload was blocked');
+    return ok(200, {
+      data: null,
+      created: false,
+      skipped: true,
+      reason: 'malformed-user-id',
+    });
   }
 
-  const existing = await getUserProfileById(profile.userId);
-  if (existing) {
-    console.log('users/init: user profile already exists', {
+  if (!isValidCognitoSubUserId(profile.userId)) {
+    console.warn('users/init: blocked invalid Cognito sub format', {
       userId: profile.userId,
+      email: profile.email,
+      role: profile.role,
       tableName: TABLES.USERS,
     });
+
     return ok(200, {
-      data: existing,
+      data: null,
       created: false,
+      skipped: true,
+      reason: 'invalid-user-id',
     });
   }
 
@@ -281,7 +318,7 @@ async function initUserProfile(claims) {
   } catch (error) {
     if (error?.name === 'ConditionalCheckFailedException') {
       const latest = await getUserProfileById(profile.userId);
-      console.log('users/init: duplicate create avoided', {
+      console.log('users/init: user profile already exists', {
         userId: profile.userId,
         tableName: TABLES.USERS,
       });

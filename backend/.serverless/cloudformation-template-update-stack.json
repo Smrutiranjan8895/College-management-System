@@ -113,6 +113,12 @@
         "LogGroupName": "/aws/lambda/gcek-central-dev-seedDataHandler"
       }
     },
+    "ChatHandlerLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/gcek-central-dev-chatHandler"
+      }
+    },
     "IamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -238,7 +244,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
+          "S3Key": "serverless/gcek-central/dev/1775906270502-2026-04-11T11:17:50.502Z/gcek-central.zip"
         },
         "Handler": "handlers/customMessageHandler.handler",
         "Runtime": "nodejs20.x",
@@ -255,7 +261,9 @@
             "RESULTS_TABLE": "Results",
             "NOTICES_TABLE": "Notices",
             "COGNITO_USER_POOL_ID": "ap-south-1_zndNmRJGt",
-            "AUTO_SEED_DUMMY": "true"
+            "AUTO_SEED_DUMMY": "true",
+            "GEMINI_API_KEY": "AIzaSyDdvUBekvNvAGaeD1tKeOxx2UzmZ8UbitQ",
+            "GEMINI_MODEL": "gemini-2.5-flash"
           }
         },
         "Role": {
@@ -276,7 +284,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
+          "S3Key": "serverless/gcek-central/dev/1775906270502-2026-04-11T11:17:50.502Z/gcek-central.zip"
         },
         "Handler": "handlers/studentHandler.handler",
         "Runtime": "nodejs20.x",
@@ -293,7 +301,9 @@
             "RESULTS_TABLE": "Results",
             "NOTICES_TABLE": "Notices",
             "COGNITO_USER_POOL_ID": "ap-south-1_zndNmRJGt",
-            "AUTO_SEED_DUMMY": "true"
+            "AUTO_SEED_DUMMY": "true",
+            "GEMINI_API_KEY": "AIzaSyDdvUBekvNvAGaeD1tKeOxx2UzmZ8UbitQ",
+            "GEMINI_MODEL": "gemini-2.5-flash"
           }
         },
         "Role": {
@@ -314,7 +324,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
+          "S3Key": "serverless/gcek-central/dev/1775906270502-2026-04-11T11:17:50.502Z/gcek-central.zip"
         },
         "Handler": "handlers/userHandler.handler",
         "Runtime": "nodejs20.x",
@@ -331,7 +341,9 @@
             "RESULTS_TABLE": "Results",
             "NOTICES_TABLE": "Notices",
             "COGNITO_USER_POOL_ID": "ap-south-1_zndNmRJGt",
-            "AUTO_SEED_DUMMY": "true"
+            "AUTO_SEED_DUMMY": "true",
+            "GEMINI_API_KEY": "AIzaSyDdvUBekvNvAGaeD1tKeOxx2UzmZ8UbitQ",
+            "GEMINI_MODEL": "gemini-2.5-flash"
           }
         },
         "Role": {
@@ -352,7 +364,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
+          "S3Key": "serverless/gcek-central/dev/1775906270502-2026-04-11T11:17:50.502Z/gcek-central.zip"
         },
         "Handler": "handlers/attendanceHandler.handler",
         "Runtime": "nodejs20.x",
@@ -369,7 +381,9 @@
             "RESULTS_TABLE": "Results",
             "NOTICES_TABLE": "Notices",
             "COGNITO_USER_POOL_ID": "ap-south-1_zndNmRJGt",
-            "AUTO_SEED_DUMMY": "true"
+            "AUTO_SEED_DUMMY": "true",
+            "GEMINI_API_KEY": "AIzaSyDdvUBekvNvAGaeD1tKeOxx2UzmZ8UbitQ",
+            "GEMINI_MODEL": "gemini-2.5-flash"
           }
         },
         "Role": {
@@ -390,7 +404,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
+          "S3Key": "serverless/gcek-central/dev/1775906270502-2026-04-11T11:17:50.502Z/gcek-central.zip"
         },
         "Handler": "handlers/resultsHandler.handler",
         "Runtime": "nodejs20.x",
@@ -407,7 +421,9 @@
             "RESULTS_TABLE": "Results",
             "NOTICES_TABLE": "Notices",
             "COGNITO_USER_POOL_ID": "ap-south-1_zndNmRJGt",
-            "AUTO_SEED_DUMMY": "true"
+            "AUTO_SEED_DUMMY": "true",
+            "GEMINI_API_KEY": "AIzaSyDdvUBekvNvAGaeD1tKeOxx2UzmZ8UbitQ",
+            "GEMINI_MODEL": "gemini-2.5-flash"
           }
         },
         "Role": {
@@ -428,7 +444,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
+          "S3Key": "serverless/gcek-central/dev/1775906270502-2026-04-11T11:17:50.502Z/gcek-central.zip"
         },
         "Handler": "handlers/noticeHandler.handler",
         "Runtime": "nodejs20.x",
@@ -445,7 +461,9 @@
             "RESULTS_TABLE": "Results",
             "NOTICES_TABLE": "Notices",
             "COGNITO_USER_POOL_ID": "ap-south-1_zndNmRJGt",
-            "AUTO_SEED_DUMMY": "true"
+            "AUTO_SEED_DUMMY": "true",
+            "GEMINI_API_KEY": "AIzaSyDdvUBekvNvAGaeD1tKeOxx2UzmZ8UbitQ",
+            "GEMINI_MODEL": "gemini-2.5-flash"
           }
         },
         "Role": {
@@ -466,7 +484,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gcek-central/dev/1775733265324-2026-04-09T11:14:25.324Z/gcek-central.zip"
+          "S3Key": "serverless/gcek-central/dev/1775906270502-2026-04-11T11:17:50.502Z/gcek-central.zip"
         },
         "Handler": "handlers/seedDataHandler.handler",
         "Runtime": "nodejs20.x",
@@ -483,7 +501,9 @@
             "RESULTS_TABLE": "Results",
             "NOTICES_TABLE": "Notices",
             "COGNITO_USER_POOL_ID": "ap-south-1_zndNmRJGt",
-            "AUTO_SEED_DUMMY": "true"
+            "AUTO_SEED_DUMMY": "true",
+            "GEMINI_API_KEY": "AIzaSyDdvUBekvNvAGaeD1tKeOxx2UzmZ8UbitQ",
+            "GEMINI_MODEL": "gemini-2.5-flash"
           }
         },
         "Role": {
@@ -497,81 +517,132 @@
         "SeedDataHandlerLogGroup"
       ]
     },
-    "CustomMessageHandlerLambdaVersionYGveq9T7CYYoljbhWR08vVwhgijsj2s9xqIRwAsWw": {
+    "ChatHandlerLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/gcek-central/dev/1775906270502-2026-04-11T11:17:50.502Z/gcek-central.zip"
+        },
+        "Handler": "handlers/chatHandler.handler",
+        "Runtime": "nodejs20.x",
+        "FunctionName": "gcek-central-dev-chatHandler",
+        "MemorySize": 256,
+        "Timeout": 10,
+        "Description": "Secure chatbot endpoint backed by Google Gemini",
+        "Environment": {
+          "Variables": {
+            "DYNAMODB_REGION": "ap-south-1",
+            "USERS_TABLE": "Users",
+            "STUDENTS_TABLE": "Student",
+            "ATTENDANCE_TABLE": "Attendance",
+            "RESULTS_TABLE": "Results",
+            "NOTICES_TABLE": "Notices",
+            "COGNITO_USER_POOL_ID": "ap-south-1_zndNmRJGt",
+            "AUTO_SEED_DUMMY": "true",
+            "GEMINI_API_KEY": "AIzaSyDdvUBekvNvAGaeD1tKeOxx2UzmZ8UbitQ",
+            "GEMINI_MODEL": "gemini-2.5-flash"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "ChatHandlerLogGroup"
+      ]
+    },
+    "CustomMessageHandlerLambdaVersionqhIUiG6kQVfkZL53p4slkv1iz7fTiSYZV9kYVTQzBE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CustomMessageHandlerLambdaFunction"
         },
-        "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
+        "CodeSha256": "UHieH4pdRk188SAHmfO/MpJcDFxR8tz673BgcGVRiuA=",
         "Description": "Custom email templates for Cognito verification"
       }
     },
-    "StudentHandlerLambdaVersiondPS5Xew1WRVxYIWuXreDAucG14yHkbVFBsSAIn2AU": {
+    "StudentHandlerLambdaVersionTLhg2PG2ZSEy1JN2EWLtyvAFcpE8rAR6Hrc1T2Sac": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "StudentHandlerLambdaFunction"
         },
-        "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
+        "CodeSha256": "UHieH4pdRk188SAHmfO/MpJcDFxR8tz673BgcGVRiuA=",
         "Description": "Manages student records (CRUD)"
       }
     },
-    "UserHandlerLambdaVersionXkCvEju8FuXPInObTEKejwCKKyTfLORdreP9xQpdc": {
+    "UserHandlerLambdaVersion58bix0BbxC4KzLewIFBPloUJ8jXjb7uzAcLpEajqI0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UserHandlerLambdaFunction"
         },
-        "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
+        "CodeSha256": "UHieH4pdRk188SAHmfO/MpJcDFxR8tz673BgcGVRiuA=",
         "Description": "Manages application users and role assignments"
       }
     },
-    "AttendanceHandlerLambdaVersionM2Y5RsxhytzpPcE7poxUDlJTtkYMs82o8TJ9DlpGz8": {
+    "AttendanceHandlerLambdaVersionfRh6ASQS5HV1Pcf8g0DSpLj94F2AcZodaXeCphhDw": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AttendanceHandlerLambdaFunction"
         },
-        "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
+        "CodeSha256": "UHieH4pdRk188SAHmfO/MpJcDFxR8tz673BgcGVRiuA=",
         "Description": "Manages attendance records"
       }
     },
-    "ResultsHandlerLambdaVersionHpreKJKO3Q0iQIaCA6jmRjVMUqo81nx76oVKmWrSQB0": {
+    "ResultsHandlerLambdaVersion3VIpioWAnebr3cHZJWGFYjTL6zjLxhVYuZbYHVBvQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ResultsHandlerLambdaFunction"
         },
-        "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
+        "CodeSha256": "UHieH4pdRk188SAHmfO/MpJcDFxR8tz673BgcGVRiuA=",
         "Description": "Manages student results and grades"
       }
     },
-    "NoticeHandlerLambdaVersion95CfozokuyTJO3Z1vYvhaxGRC8jFdmX0vamalWfQZP8": {
+    "NoticeHandlerLambdaVersionoZP3dHNjEnyiIUnFweZdQPeKiiOElCKZlng1QCDI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "NoticeHandlerLambdaFunction"
         },
-        "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
+        "CodeSha256": "UHieH4pdRk188SAHmfO/MpJcDFxR8tz673BgcGVRiuA=",
         "Description": "Manages notices and announcements"
       }
     },
-    "SeedDataHandlerLambdaVersiondYUdID4rBM7hGauxQPbcgk656S3qBvGyXQ44eyHc": {
+    "SeedDataHandlerLambdaVersion5j47sBb6pbMU2o7fU7l99Xs8viknBeIp7cNCZ5dHq4A": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "SeedDataHandlerLambdaFunction"
         },
-        "CodeSha256": "bnraifzPRndVRcB2ePupbRmUh+V8MaJAbQ1B3DiS3lQ=",
+        "CodeSha256": "UHieH4pdRk188SAHmfO/MpJcDFxR8tz673BgcGVRiuA=",
         "Description": "Seeds realistic dummy academic data"
+      }
+    },
+    "ChatHandlerLambdaVersionzoe7jtk0sNEjTnAko9VZKNIwaW8zbpPn0hkypM6mg": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "ChatHandlerLambdaFunction"
+        },
+        "CodeSha256": "UHieH4pdRk188SAHmfO/MpJcDFxR8tz673BgcGVRiuA=",
+        "Description": "Secure chatbot endpoint backed by Google Gemini"
       }
     },
     "ApiGatewayRestApi": {
@@ -635,6 +706,18 @@
           "Ref": "ApiGatewayResourceUsers"
         },
         "PathPart": "me",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceUsersInit": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceUsers"
+        },
+        "PathPart": "init",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -820,6 +903,21 @@
         }
       }
     },
+    "ApiGatewayResourceChat": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "chat",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
     "ApiGatewayMethodStudentsOptions": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
@@ -949,6 +1047,51 @@
         },
         "ResourceId": {
           "Ref": "ApiGatewayResourceUsersMe"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodUsersInitOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceUsersInit"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -1585,6 +1728,51 @@
         }
       }
     },
+    "ApiGatewayMethodChatOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceChat"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
     "ApiGatewayMethodStudentsGet": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
@@ -1837,6 +2025,55 @@
         "RequestParameters": {},
         "ResourceId": {
           "Ref": "ApiGatewayResourceUsersMe"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "ApiGatewayAuthorizer"
+        },
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "UserHandlerLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "UserHandlerLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayMethodUsersInitPost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceUsersInit"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -2954,7 +3191,56 @@
         "SeedDataHandlerLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1775733199024": {
+    "ApiGatewayMethodChatPost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceChat"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "ApiGatewayAuthorizer"
+        },
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ChatHandlerLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "ChatHandlerLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayDeployment1775906235995": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -2966,6 +3252,7 @@
         "ApiGatewayMethodStudentsOptions",
         "ApiGatewayMethodStudentsStudentidVarOptions",
         "ApiGatewayMethodUsersMeOptions",
+        "ApiGatewayMethodUsersInitOptions",
         "ApiGatewayMethodUsersCheckDashemailOptions",
         "ApiGatewayMethodUsersOptions",
         "ApiGatewayMethodUsersSelfDashroleOptions",
@@ -2980,12 +3267,14 @@
         "ApiGatewayMethodNoticesOptions",
         "ApiGatewayMethodNoticesNoticeidVarOptions",
         "ApiGatewayMethodSeedDummyDashdataOptions",
+        "ApiGatewayMethodChatOptions",
         "ApiGatewayMethodStudentsGet",
         "ApiGatewayMethodStudentsPost",
         "ApiGatewayMethodStudentsStudentidVarGet",
         "ApiGatewayMethodStudentsStudentidVarPut",
         "ApiGatewayMethodStudentsStudentidVarDelete",
         "ApiGatewayMethodUsersMeGet",
+        "ApiGatewayMethodUsersInitPost",
         "ApiGatewayMethodUsersCheckDashemailGet",
         "ApiGatewayMethodUsersGet",
         "ApiGatewayMethodUsersPost",
@@ -3007,7 +3296,8 @@
         "ApiGatewayMethodNoticesNoticeidVarPut",
         "ApiGatewayMethodNoticesNoticeidVarDelete",
         "ApiGatewayMethodSeedDummyDashdataGet",
-        "ApiGatewayMethodSeedDummyDashdataPost"
+        "ApiGatewayMethodSeedDummyDashdataPost",
+        "ApiGatewayMethodChatPost"
       ]
     },
     "StudentHandlerLambdaPermissionApiGateway": {
@@ -3232,6 +3522,43 @@
         }
       }
     },
+    "ChatHandlerLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ChatHandlerLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
     "CustomMessageInvokePermission": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
@@ -3273,7 +3600,7 @@
     "CustomMessageHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CustomMessageHandlerLambdaVersionYGveq9T7CYYoljbhWR08vVwhgijsj2s9xqIRwAsWw"
+        "Ref": "CustomMessageHandlerLambdaVersionqhIUiG6kQVfkZL53p4slkv1iz7fTiSYZV9kYVTQzBE"
       },
       "Export": {
         "Name": "sls-gcek-central-dev-CustomMessageHandlerLambdaFunctionQualifiedArn"
@@ -3282,7 +3609,7 @@
     "StudentHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "StudentHandlerLambdaVersiondPS5Xew1WRVxYIWuXreDAucG14yHkbVFBsSAIn2AU"
+        "Ref": "StudentHandlerLambdaVersionTLhg2PG2ZSEy1JN2EWLtyvAFcpE8rAR6Hrc1T2Sac"
       },
       "Export": {
         "Name": "sls-gcek-central-dev-StudentHandlerLambdaFunctionQualifiedArn"
@@ -3291,7 +3618,7 @@
     "UserHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UserHandlerLambdaVersionXkCvEju8FuXPInObTEKejwCKKyTfLORdreP9xQpdc"
+        "Ref": "UserHandlerLambdaVersion58bix0BbxC4KzLewIFBPloUJ8jXjb7uzAcLpEajqI0"
       },
       "Export": {
         "Name": "sls-gcek-central-dev-UserHandlerLambdaFunctionQualifiedArn"
@@ -3300,7 +3627,7 @@
     "AttendanceHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AttendanceHandlerLambdaVersionM2Y5RsxhytzpPcE7poxUDlJTtkYMs82o8TJ9DlpGz8"
+        "Ref": "AttendanceHandlerLambdaVersionfRh6ASQS5HV1Pcf8g0DSpLj94F2AcZodaXeCphhDw"
       },
       "Export": {
         "Name": "sls-gcek-central-dev-AttendanceHandlerLambdaFunctionQualifiedArn"
@@ -3309,7 +3636,7 @@
     "ResultsHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ResultsHandlerLambdaVersionHpreKJKO3Q0iQIaCA6jmRjVMUqo81nx76oVKmWrSQB0"
+        "Ref": "ResultsHandlerLambdaVersion3VIpioWAnebr3cHZJWGFYjTL6zjLxhVYuZbYHVBvQ"
       },
       "Export": {
         "Name": "sls-gcek-central-dev-ResultsHandlerLambdaFunctionQualifiedArn"
@@ -3318,7 +3645,7 @@
     "NoticeHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "NoticeHandlerLambdaVersion95CfozokuyTJO3Z1vYvhaxGRC8jFdmX0vamalWfQZP8"
+        "Ref": "NoticeHandlerLambdaVersionoZP3dHNjEnyiIUnFweZdQPeKiiOElCKZlng1QCDI"
       },
       "Export": {
         "Name": "sls-gcek-central-dev-NoticeHandlerLambdaFunctionQualifiedArn"
@@ -3327,10 +3654,19 @@
     "SeedDataHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "SeedDataHandlerLambdaVersiondYUdID4rBM7hGauxQPbcgk656S3qBvGyXQ44eyHc"
+        "Ref": "SeedDataHandlerLambdaVersion5j47sBb6pbMU2o7fU7l99Xs8viknBeIp7cNCZ5dHq4A"
       },
       "Export": {
         "Name": "sls-gcek-central-dev-SeedDataHandlerLambdaFunctionQualifiedArn"
+      }
+    },
+    "ChatHandlerLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "ChatHandlerLambdaVersionzoe7jtk0sNEjTnAko9VZKNIwaW8zbpPn0hkypM6mg"
+      },
+      "Export": {
+        "Name": "sls-gcek-central-dev-ChatHandlerLambdaFunctionQualifiedArn"
       }
     },
     "ServiceEndpoint": {

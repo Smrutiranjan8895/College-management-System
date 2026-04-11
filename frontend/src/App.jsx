@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Spinner from './components/Spinner';
+import ChatWidget from './components/ChatWidget';
 
 // Landing page
 import Landing from './pages/Landing';
@@ -27,10 +28,12 @@ import Attendance from './pages/Attendance';
 import Results from './pages/Results';
 import Notices from './pages/Notices';
 import Analytics from './pages/Analytics';
+import Chat from './pages/Chat';
 
 function DashboardLayout({ children }) {
   const location = useLocation();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const showChatWidget = location.pathname !== '/chat';
 
   useEffect(() => {
     setSidebarOpen(false);
@@ -51,6 +54,7 @@ function DashboardLayout({ children }) {
         <Navbar onToggleSidebar={() => setSidebarOpen((prev) => !prev)} />
         <main className="layout__content">{children}</main>
       </div>
+      {showChatWidget && <ChatWidget />}
     </div>
   );
 }
@@ -183,6 +187,17 @@ function App() {
           <ProtectedRoute allowedRoles={['admin', 'branch_admin']}>
             <DashboardLayout>
               <Analytics />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Chat />
             </DashboardLayout>
           </ProtectedRoute>
         }

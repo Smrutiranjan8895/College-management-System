@@ -7,6 +7,7 @@ import {
   FileText,
   Bell,
   BarChart3,
+  MessageSquare,
   LogOut,
   GraduationCap,
 } from 'lucide-react';
@@ -21,6 +22,7 @@ const navItems = {
     { path: '/results', label: 'Results', icon: FileText },
     { path: '/notices', label: 'Notices', icon: Bell },
     { path: '/analytics', label: 'Analytics', icon: BarChart3 },
+    { path: '/chat', label: 'Chat Assistant', icon: MessageSquare },
   ],
   branch_admin: [
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -29,18 +31,21 @@ const navItems = {
     { path: '/results', label: 'Results', icon: FileText },
     { path: '/notices', label: 'Notices', icon: Bell },
     { path: '/analytics', label: 'Analytics', icon: BarChart3 },
+    { path: '/chat', label: 'Chat Assistant', icon: MessageSquare },
   ],
   teacher: [
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/attendance', label: 'Attendance', icon: CalendarCheck },
     { path: '/results', label: 'Results', icon: FileText },
     { path: '/notices', label: 'Notices', icon: Bell },
+    { path: '/chat', label: 'Chat Assistant', icon: MessageSquare },
   ],
   student: [
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/attendance', label: 'My Attendance', icon: CalendarCheck },
     { path: '/results', label: 'My Results', icon: FileText },
     { path: '/notices', label: 'Notices', icon: Bell },
+    { path: '/chat', label: 'Chat Assistant', icon: MessageSquare },
   ],
 };
 

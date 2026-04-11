@@ -21,6 +21,7 @@
     "deploy:prod": "serverless deploy --stage prod",
     "seed:dummy": "node scripts/seedDummyData.js",
     "cleanup:users": "node scripts/cleanupMalformedUsers.js",
+    "cleanup:users:apply": "node scripts/cleanupMalformedUsers.js --apply",
     "remove": "serverless remove",
     "logs": "serverless logs -f",
     "info": "serverless info",

@@ -10,6 +10,7 @@ const pageTitles = {
   '/results': 'Results',
   '/notices': 'Notices',
   '/analytics': 'Analytics',
+  '/chat': 'Chat Assistant',
 };
 
 function Navbar({ onToggleSidebar = () => {} }) {

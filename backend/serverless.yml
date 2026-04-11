@@ -2,6 +2,7 @@ service: gcek-central
 
 
 frameworkVersion: '3'
+useDotenv: true
 
 provider:
   name: aws
@@ -20,6 +21,8 @@ provider:
     NOTICES_TABLE: ${self:custom.noticesTable}
     COGNITO_USER_POOL_ID: ${self:custom.cognitoUserPoolId}
     AUTO_SEED_DUMMY: ${env:AUTO_SEED_DUMMY, 'true'}
+    GEMINI_API_KEY: ${env:GEMINI_API_KEY, env:gemini_api_key, ''}
+    GEMINI_MODEL: ${env:GEMINI_MODEL, 'gemini-1.5-flash'}
   
   iam:
     role:
@@ -332,6 +335,19 @@ functions:
               Ref: ApiGatewayAuthorizer
       - http:
           path: seed/dummy-data
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+
+  chatHandler:
+    handler: handlers/chatHandler.handler
+    description: Secure chatbot endpoint backed by Google Gemini
+    events:
+      - http:
+          path: chat
           method: post
           cors: true
           authorizer:

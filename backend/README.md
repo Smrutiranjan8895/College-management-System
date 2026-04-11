@@ -197,6 +197,12 @@ Set automatically by Serverless:
 - `NOTICES_TABLE` - Notices table name
 - `COGNITO_USER_POOL_ID` - Cognito User Pool ID
 
+Chat configuration:
+- `GEMINI_API_KEY` - Google Gemini API key used by `chatHandler`
+- `GEMINI_MODEL` - Optional model name (default: `gemini-1.5-flash`)
+
+If `GEMINI_API_KEY` is missing, chat falls back to a built-in CMS helper reply so the endpoint remains available without returning 500.
+
 ## Troubleshooting
 
 ### "User is not authorized"
